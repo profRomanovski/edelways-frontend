@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import groupRouters from "@/modules/Groups/router";
-
+import user from "@/modules/User/router"
 const baseRoutes = [
 
 ]
 
-const routes = baseRoutes.concat(groupRouters);
+const routes = baseRoutes.concat(groupRouters, user);
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

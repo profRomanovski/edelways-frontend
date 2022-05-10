@@ -6,7 +6,7 @@
       <span>Edelways</span>
     </div>
     <div class="menu">
-      <img src="@/assets/images/user.svg" alt="logo" width="52" height="55">
+      <user-menu></user-menu>
     </div>
   </div>
 </header>
@@ -14,8 +14,10 @@
 </template>
 
 <script>
+import UserMenu from "@/modules/User/components/header/UserMenu";
 export default {
-  name: "HeaderMain"
+  name: "HeaderMain",
+  components: {UserMenu}
 }
 </script>
 
