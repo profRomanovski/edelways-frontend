@@ -30,6 +30,7 @@
 import {mapActions, mapGetters, mapMutations} from "vuex";
 import config from "@/config";
 import SubmitButton from "@/modules/Main/components/buttons/SubmitButton";
+import { useCookies } from "vue3-cookies";
 
 export default {
   name: "user-menu",
@@ -43,7 +44,7 @@ export default {
       return  hostname+this.getUserImage()
     },
     logout(){
-      document.cookie = "Token='';"
+      document.cookie = "Token=;"
       this.setToken("")
     }
   },
@@ -60,7 +61,15 @@ export default {
       this.loadUserData()
       console.log("load user data")
     }
+  },
+  setup() {
+    const { cookies } = useCookies();
+    return { cookies };
+  },
+  mounted() {
+    this.setToken(this.cookies.get("Token"))
   }
+
 }
 </script>
 

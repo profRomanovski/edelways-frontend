@@ -1,12 +1,14 @@
 <template>
-<form-general
-    path="images/register-form.png"
-    submitTitle="Вхід"
-    @submitForm="loginAction"
->
-  <input-text v-model="email" input-type="email" label="Електронна пошта"></input-text>
-  <input-text v-model="password" input-type="password" label="Пароль"></input-text>
-</form-general>
+  <div class="content">
+    <form-general
+        path="images/register-form.png"
+        submitTitle="Вхід"
+        @submitForm="loginAction"
+    >
+      <input-text v-model="email" input-type="email" label="Електронна пошта"></input-text>
+      <input-text v-model="password" input-type="password" label="Пароль"></input-text>
+    </form-general>
+  </div>
 </template>
 
 <script>

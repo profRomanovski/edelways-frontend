@@ -1,7 +1,7 @@
 <template>
 <header>
   <div class="header-container">
-    <div class="logo">
+    <div class="logo" @click="logoClick">
       <img src="@/assets/images/logo.png" alt="logo" width="52" height="55">
       <span>Edelways</span>
     </div>
@@ -15,9 +15,15 @@
 
 <script>
 import UserMenu from "@/modules/User/components/header/UserMenu";
+import router from "@/modules/Framework/router";
 export default {
   name: "HeaderMain",
-  components: {UserMenu}
+  components: {UserMenu},
+  methods:{
+    logoClick(){
+      router.push('/')
+    }
+  }
 }
 </script>
 
@@ -40,6 +46,7 @@ header{
   align-items: center;
   justify-content: space-between;
   min-width: 130px;
+  cursor: pointer;
 }
 .logo span{
   color: white;

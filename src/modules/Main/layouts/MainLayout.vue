@@ -1,19 +1,21 @@
 <template>
-
   <header-main></header-main>
-  <div class="content">
-    <slot></slot>
-  </div>
+  <slide>
+    <slide-content></slide-content>
+  </slide>
+  <slot></slot>
 </template>
 
 <script>
 import HeaderMain from "@/modules/Main/components/header/HeaderMain";
 import {mapMutations} from "vuex";
 import { useCookies } from "vue3-cookies";
+import Slide from "@/modules/Main/components/sidebar/Slide";
+import SlideContent from "@/modules/Main/components/sidebar/SlideContent";
 
 export default {
   name: "MainLayout",
-  components: {HeaderMain},
+  components: {SlideContent, Slide, HeaderMain},
   methods:{
     ...mapMutations(['setToken'])
   },
@@ -22,13 +24,12 @@ export default {
     return { cookies };
   },
   mounted() {
-    setTimeout(this.$toast.clear, 3000)
     this.setToken(this.cookies.get("Token"))
   }
 }
 </script>
 
-<style scoped>
+<style>
 .content{
   display: flex;
   justify-content: center;

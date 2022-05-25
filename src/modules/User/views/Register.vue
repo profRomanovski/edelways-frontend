@@ -1,15 +1,17 @@
 <template>
-<form-general
-    path="images/register-form.png"
-    submitTitle="Стоврити акаунт"
-    @submitForm="register"
->
-  <input-text v-model="name" label="Ім'я"></input-text>
-  <input-text v-model="email" input-type="email" label="Електронна пошта"></input-text>
-  <input-text v-model="password" input-type="password" label="Пароль"></input-text>
-  <input-text v-model="passwordConfirm" input-type="password" label="Підтвердити пароль"></input-text>
-  <image-uploader @uploaded="setImage" dir-name="user"></image-uploader>
-</form-general>
+  <div class="content">
+    <form-general
+        path="images/register-form.png"
+        submitTitle="Стоврити акаунт"
+        @submitForm="register"
+    >
+      <input-text v-model="name" label="Ім'я"></input-text>
+      <input-text v-model="email" input-type="email" label="Електронна пошта"></input-text>
+      <input-text v-model="password" input-type="password" label="Пароль"></input-text>
+      <input-text v-model="passwordConfirm" input-type="password" label="Підтвердити пароль"></input-text>
+      <image-uploader @uploaded="setImage" dir-name="user"></image-uploader>
+    </form-general>
+  </div>
 </template>
 
 <script>
