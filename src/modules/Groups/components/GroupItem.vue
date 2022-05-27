@@ -14,7 +14,7 @@
     <icon name="delete-group" class="group-action-icon" @click="deleteGroupAction" size="20px"></icon>
   </template>
   <div class="button-container">
-    <submit-button title="перегляд"></submit-button>
+    <submit-button title="перегляд" @click="viewGroup"></submit-button>
   </div>
 </div>
   <template v-if="showMessage">
@@ -30,6 +30,7 @@ import SubmitButton from "@/modules/Main/components/buttons/SubmitButton";
 import {mapActions, mapGetters} from "vuex";
 import getErrorText from "@/modules/Framework/services/ErrorService";
 import YesNoMessage from "@/modules/Main/components/messages/yesNoMessage";
+import router from "@/modules/Framework/router";
 export default {
   name: "GroupItem",
   components: {YesNoMessage, SubmitButton, Icon},
@@ -75,6 +76,9 @@ export default {
             })
       }
       this.toggleMessage()
+    },
+    viewGroup(){
+      router.push('/view/'+this.group.id)
     }
   },
   computed:{

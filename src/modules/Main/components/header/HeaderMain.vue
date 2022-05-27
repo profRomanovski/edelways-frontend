@@ -21,7 +21,7 @@ export default {
   components: {UserMenu},
   methods:{
     logoClick(){
-      router.push('/')
+      router.back()
     }
   }
 }

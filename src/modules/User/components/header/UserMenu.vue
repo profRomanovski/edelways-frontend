@@ -6,10 +6,10 @@
     <template v-else>
       <img :src="getImagePath()" alt="logo" width="52" height="55">
     </template>
-    <div class="dropdown-content">
+    <dropdown>
       <template v-if="!getToken">
-       <router-link to="/login">Вхід</router-link>
-       <router-link to="/registration">Реєстрація</router-link>
+        <custom-link title="Вхід" to="/login"></custom-link>
+        <custom-link to="/registration" title="Реєстрація"></custom-link>
       </template>
       <template v-else>
         <div class="profile">
@@ -22,7 +22,7 @@
         </div>
         </div>
       </template>
-    </div>
+    </dropdown>
   </div>
 </template>
 
@@ -31,10 +31,12 @@ import {mapActions, mapGetters, mapMutations} from "vuex";
 import config from "@/config";
 import SubmitButton from "@/modules/Main/components/buttons/SubmitButton";
 import { useCookies } from "vue3-cookies";
+import Dropdown from "@/modules/Main/components/dropdown/Dropdown";
+import CustomLink from "@/modules/Main/components/dropdown/CustomLink";
 
 export default {
   name: "user-menu",
-  components: {SubmitButton},
+  components: {CustomLink, Dropdown, SubmitButton},
   methods:{
     ...mapGetters(['getUserToken', 'getUserName', 'getUserImage']),
     ...mapActions(['loadUserData']),
@@ -78,25 +80,6 @@ export default {
   position: relative;
   display: inline-block;
 }
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 125px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  border-radius: 5px;
-}
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
-.dropdown-content a:hover {background-color: #f1f1f1}
 
 img{
   border-radius: 50%;

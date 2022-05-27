@@ -4,7 +4,8 @@ import config from "@/config";
 export default {
     state: {
         groups : [],
-        filter: 'all'
+        filter: 'all',
+        group: null
     },
     getters: {
         getGroups(state){
@@ -12,6 +13,9 @@ export default {
         },
         getFilter(state){
             return state.filter
+        },
+        getGroup(state){
+            return state.group
         }
     },
     actions: {
@@ -84,7 +88,23 @@ export default {
             } else {
                 commit('setGroups', [])
             }
-
+        },
+        async loadGroup({commit, rootGetters}, id){
+            const token = rootGetters.getUserToken
+            if(token){
+                const configs = {
+                    headers: { Authorization: `Bearer ${token}` },
+                    params: {
+                        id: id
+                    }
+                };
+                return await axios.get(config.hostname+'/api/group',configs)
+                    .then((res)=>{
+                        commit('setGroup', res.data)
+                    })
+            } else {
+                commit('setGroup', null)
+            }
         }
     },
     mutations: {
@@ -93,6 +113,9 @@ export default {
         },
         setFilter(state, filter){
             state.filter = filter
+        },
+        setGroup(state, group){
+            state.group = group
         }
     },
 }
