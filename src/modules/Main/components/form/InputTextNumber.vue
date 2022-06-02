@@ -1,8 +1,9 @@
 <template>
   <div class="input">
-    <icon :name="icon" size="30px" class="icon"></icon>
-    <input :type="inputType" class="input-field" required
+    <input type="number" class="input-field" required
            :value='modelValue'
+           :min="min"
+           :max="max"
            @input='$emit("update:modelValue", $event.target.value)'
     />
     <label class="input-label">{{label}}</label>
@@ -10,23 +11,13 @@
 </template>
 
 <script>
-import Icon from "@/modules/Framework/components/Icon";
 export default {
-  name: "InputTextIcon",
-  components: {Icon},
+  name: "InputTextNumber",
   props: {
     modelValue: String,
     label: String,
-    inputType: {
-      type: String,
-      default: "text"
-    },
-    icon: String
-  },
-  methods:{
-  getImage(icon) {
-    return require("@/assets/icons/" + icon +".svg")
-  }
+    min: Number,
+    max: Number
   },
 }
 </script>
@@ -62,15 +53,8 @@ input {
   font: inherit;
   font-size: 1.125rem;
   padding: 0.5rem 0.7rem;
-  padding-left: 45px;
 }
 .input-field:focus{
   outline: none;
-}
-.icon{
-  position: absolute;
-  top: 27px;
-  left: 7px;
-  z-index: 3;
 }
 </style>

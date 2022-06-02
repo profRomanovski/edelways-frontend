@@ -1,8 +1,8 @@
 <template>
   <header-clild>
     <tabs>
-      <tab label="Завдання" value="all" v-model="tab"></tab>
-      <tab label="Теорія" value="my" :checked="true" v-model="tab"></tab>
+      <tab label="Завдання" value="task" :checked="true" v-model="tab"></tab>
+      <tab label="Теорія" value="theory" v-model="tab"></tab>
       <tab label="Люди" value="people" v-model="tab"></tab>
     </tabs>
     <template v-if="getIsAdmin">
@@ -11,7 +11,14 @@
   </header-clild>
   <div class="content">
     <image-box path="images/list.jpg" width="600px">
-      <theory-list :group-id="groupId"></theory-list>
+      <template v-if="tab === 'theory'">
+        <theory-list :group-id="groupId"></theory-list>
+      </template>
+      <template v-if="tab === 'task'">
+        <task-list :group-id="groupId"></task-list>
+      </template>
+      <template v-if="tab === 'people'">
+      </template>
     </image-box>
   </div>
 </template>
@@ -26,13 +33,15 @@ import router from "@/modules/Framework/router";
 import ImageBox from "@/modules/Main/components/boxes/ImageBox";
 import TheoryList from "@/modules/Theory/components/TheoryList";
 import AdminDropdown from "@/modules/Groups/components/AdminDropdown";
+import TaskList from "@/modules/Task/components/TaskList";
 
 export default {
   name: "GroupView",
-  components: {AdminDropdown, TheoryList, ImageBox, Tab, Tabs, HeaderClild},
+  components: {TaskList, AdminDropdown, TheoryList, ImageBox, Tab, Tabs, HeaderClild},
   data(){
     return{
       groupId: this.$route.params.id,
+      tab: 'task'
     }
   },
   methods:{
