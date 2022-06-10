@@ -4,7 +4,7 @@
   <dropdown>
     <custom-link to="/create-task" title="Створити завдання"></custom-link>
     <custom-link to="/create-theory" title="Додати теорію"></custom-link>
-    <custom-link to="/" title="Додати користувача"></custom-link>
+    <custom-link to="/invite-view" title="Додати користувача"></custom-link>
   </dropdown>
   </div>
 </template>

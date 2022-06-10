@@ -24,7 +24,12 @@ export default {
     return { cookies };
   },
   mounted() {
-    this.setToken(this.cookies.get("Token"))
+    const token = this.cookies.get("Token")
+    if(token === "null" || token === null){
+      this.setToken("")
+    } else {
+      this.setToken(token)
+    }
   }
 }
 </script>

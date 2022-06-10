@@ -18,6 +18,7 @@
         <task-list :group-id="groupId"></task-list>
       </template>
       <template v-if="tab === 'people'">
+        <users></users>
       </template>
     </image-box>
   </div>
@@ -34,10 +35,11 @@ import ImageBox from "@/modules/Main/components/boxes/ImageBox";
 import TheoryList from "@/modules/Theory/components/TheoryList";
 import AdminDropdown from "@/modules/Groups/components/AdminDropdown";
 import TaskList from "@/modules/Task/components/TaskList";
+import Users from "@/modules/User/views/Users";
 
 export default {
   name: "GroupView",
-  components: {TaskList, AdminDropdown, TheoryList, ImageBox, Tab, Tabs, HeaderClild},
+  components: {Users, TaskList, AdminDropdown, TheoryList, ImageBox, Tab, Tabs, HeaderClild},
   data(){
     return{
       groupId: this.$route.params.id,

@@ -1,7 +1,8 @@
 <template>
   <header-clild>
   <task-header :task="getTaskFromStorage"></task-header>
-    <span class="mark" v-if="getTaskFromStorage && getTaskFromStorage.complete && getTaskFromStorage.complete.mark">
+    <span class="mark" v-if="getTaskFromStorage && getTaskFromStorage.complete
+    && getTaskFromStorage.complete.mark">
       {{getTaskFromStorage.complete.mark}}/{{getTaskFromStorage.mark}}
     </span>
     <span class="mark" v-else-if="getTaskFromStorage">
@@ -26,9 +27,22 @@
             @submitForm="completeTaskAction"
         >
           <h1>Моя робота</h1>
-          <h2 v-if="getTaskFromStorage.complete">Здано: {{getTaskFromStorage.complete.document}}</h2>
+          <h2 v-if="getTaskFromStorage.complete">
+            Здано:  <a :href="getCompleteDocumentPath" target="_blank" class="underline"
+                       v-if="getTaskFromStorage.complete.document_path">
+            <span>{{getTaskFromStorage.complete.document}}</span>
+          </a>
+          </h2>
           <file-uploader @uploaded="uploaded" dir-name="task-completes"></file-uploader>
         </form-general>
+        <empty-box class="comments">
+        <h1>Історія</h1>
+          <template v-for="comment in getTaskFromStorage.comments" :key="comment.key">
+            <comment-item :comment="comment"></comment-item>
+          </template>
+        </empty-box>
+        <empty-box class="empty">
+        </empty-box>
       </div>
     </template>
   </div>
@@ -44,10 +58,12 @@ import router from "@/modules/Framework/router";
 import {mapActions, mapGetters} from "vuex";
 import TaskHeader from "@/modules/Task/components/header/TaskHeader";
 import config from "@/config";
+import EmptyBox from "@/modules/Main/components/boxes/EmptyBox";
+import CommentItem from "@/modules/Task/components/CommentItem";
 
 export default {
   name: "TaskView",
-  components: {TaskHeader, FileUploader, FormGeneral, ImageBox, HeaderClild},
+  components: {CommentItem, EmptyBox, TaskHeader, FileUploader, FormGeneral, ImageBox, HeaderClild},
   methods: {
     ...mapActions(['loadTask', 'completeTask']),
     ...mapGetters(['getTask']),
@@ -74,6 +90,9 @@ export default {
     },
     getDocumentPath() {
       return "https://docs.google.com/viewerng/viewer?url=" + this.hostname + this.getTaskFromStorage.document_path
+    },
+    getCompleteDocumentPath() {
+      return "https://docs.google.com/viewerng/viewer?url=" + this.hostname + this.getTaskFromStorage.complete.document_path
     },
   },
   data() {
@@ -122,6 +141,9 @@ export default {
   font-weight: 400;
   font-size: 20px;
   line-height: 24px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
 }
 
 h1 {
@@ -158,5 +180,12 @@ a{
 }
 .mark{
   font-size:18px;
+}
+.comments{
+  max-width: 600px;
+  box-shadow: none;
+}
+.empty{
+  height: 0;
 }
 </style>

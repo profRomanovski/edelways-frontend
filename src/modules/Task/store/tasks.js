@@ -1,6 +1,5 @@
 import axios from "axios";
 import config from "@/config";
-import router from "@/modules/Framework/router";
 
 export default {
     state: {
@@ -131,9 +130,6 @@ export default {
                 id: id
             }
             return await axios.post(config.hostname+'/api/delete-task', data, configs)
-                .then(()=>{
-                    router.back()
-                })
         },
     },
     mutations: {

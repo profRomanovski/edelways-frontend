@@ -30,7 +30,6 @@ export default {
             return await axios.post(config.hostname+'/api/login', data)
                 .then((res)=>{
                     commit('setToken', res.data.token)
-                    document.cookie = "Token="+res.data.token+";"
                     dispatch('loadUserData')
                 })
         },
@@ -49,6 +48,7 @@ export default {
     },
     mutations: {
         setToken(state, token){
+            document.cookie = "Token="+token+";"
             state.token = token
         },
         setUserName(state, name){

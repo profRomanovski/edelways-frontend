@@ -1,6 +1,6 @@
 <template>
   <div class="item" v-if="complete !== null">
-    <img :src="getImagePath()" alt="logo" width="35" height="35">
+    <img :src="getImagePath()" alt="logo" width="45" height="35">
     <div class="labels">
       <span class="title">{{complete.author}}</span>
       <div class="labels-footer">

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <component :is="layout">
-      <router-view/>
+      <router-view :key="$route.fullPath"/>
     </component>
   </div>
 </template>
@@ -72,5 +72,8 @@ q:before, q:after {
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+img{
+  object-fit: cover;
 }
 </style>

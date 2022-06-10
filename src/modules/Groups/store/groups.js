@@ -89,6 +89,16 @@ export default {
                 commit('setGroups', [])
             }
         },
+        async deleteUserFromGroup({rootGetters, dispatch}, data){
+            const token = rootGetters.getUserToken
+            const configs = {
+                headers: {Authorization: `Bearer ${token}`},
+            }
+            return await axios.post(config.hostname+'/api/delete-user', data, configs)
+                .then(()=>{
+                    dispatch('loadGroup', data.group_id)
+                })
+        },
         async loadGroup({commit, rootGetters}, id){
             const token = rootGetters.getUserToken
             if(token){
@@ -112,6 +122,7 @@ export default {
             state.groups = groups
         },
         setFilter(state, filter){
+            document.cookie = "Filter="+filter+";"
             state.filter = filter
         },
         setGroup(state, group){

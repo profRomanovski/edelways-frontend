@@ -40,13 +40,12 @@ export default {
   methods:{
     ...mapGetters(['getUserToken', 'getUserName', 'getUserImage']),
     ...mapActions(['loadUserData']),
-    ...mapMutations(['setToken']),
+    ...mapMutations(['setToken', 'setFilter']),
     getImagePath(){
       let hostname = config.hostname;
       return  hostname+this.getUserImage()
     },
     logout(){
-      document.cookie = "Token=;"
       this.setToken("")
     }
   },
@@ -69,7 +68,14 @@ export default {
     return { cookies };
   },
   mounted() {
-    this.setToken(this.cookies.get("Token"))
+    const token = this.cookies.get("Token")
+    if(token === "null" || token === null){
+      this.setToken("")
+    } else {
+      this.setToken(token)
+    }
+
+    this.setFilter(this.cookies.get('Filter'))
   }
 
 }
@@ -92,6 +98,8 @@ img{
   flex-direction: column;
   justify-content: space-around;
   min-height: 110px;
+  min-width: 130px;
+  padding: 5px;
 }
 h1{
   font-size: 18px;

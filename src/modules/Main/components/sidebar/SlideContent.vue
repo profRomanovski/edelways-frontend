@@ -4,7 +4,16 @@
       <nav class="side-nav">
         <ul class="nav-menu">
           <template v-for="group in getGroupsFromStorage" :key="group.id">
-            <li class="nav-item"><a href="#"><i class="fas fa-user"></i><span class="menu-text">{{ group.name }}</span></a></li>
+            <li v-if="getGroupFromStorage && group.id === getGroupFromStorage.id"
+                @click="toggleSidebar"
+                class="nav-item active">
+              <router-link :to="'/view/'+group.id" :key="group.id">
+              <span class="menu-text">{{ group.name }}</span>
+            </router-link></li>
+            <li v-else @click="toggleSidebar"
+                class="nav-item"> <router-link :to="'/view/'+group.id" :key="group.id">
+              <span class="menu-text">{{ group.name }}</span>
+            </router-link></li>
           </template>
         </ul>
       </nav>
@@ -45,8 +54,8 @@ export default {
   name: "SlideContent",
   components: {JoinGroup, CreateGroup, ModalView, SubmitButton},
   methods:{
-    ...mapGetters(['getGroups', 'getUserToken', 'getFilter']),
-    ...mapActions(['toggleSidebar']),
+    ...mapGetters(['getGroups', 'getUserToken', 'getFilter', 'getGroup']),
+    ...mapActions(['toggleSidebar', "loadGroups"]),
     createGroup(){
       if (this.getUserToken()) {
         this.toggleModalCreate()
@@ -87,7 +96,13 @@ export default {
     },
     getFilterFromStorage(){
       return this.getFilter()
+    },
+    getGroupFromStorage(){
+      return this.getGroup()
     }
+  },
+  async mounted() {
+    await this.loadGroups(this.getFilterFromStorage)
   }
 }
 </script>
